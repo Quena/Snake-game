@@ -25,7 +25,18 @@ function createGrid() {
    currentSnake.forEach(index => squares[index].classList.add("snake"))
 
    function startGame() {
-        timerId = setInterval(moveSnake, intervalTime)
+    //reset everything    
+    currentSnake.forEach(index => squares[index].classList.remove("snake")) //removes the snake
+    squares[appleIndex].classList.remove("apple")//remove the apple
+    clearInterval(timerId)
+    currentSnake = [2,1,0]
+    score = 0
+    scoreDisplay.textContent = score
+    direction = 1
+    intervalTime = 1000
+    createApple()
+    currentSnake.forEach(index => squares[index].classList.add("snake")) //adds the class of snake again
+    timerId = setInterval(moveSnake, intervalTime)
    }
 
    function moveSnake() {  
@@ -34,7 +45,7 @@ function createGrid() {
         (currentSnake[0] % width === width-1 && direction === 1) || //if snake has hit right wall
         (currentSnake[0] % width === 0 && direction === -1) || //if snake has hit left wall
         (currentSnake[0] - width < 0 && direction === -width) || //if snake has hit top
-        squares[currentSnake[0] + direction].classList.contains('snake') //if snake hits into itself
+        squares[currentSnake[0] + direction].classList.contains("snake") //if snake hits into itself
     )
     return clearInterval(timerId)
 
@@ -43,10 +54,10 @@ function createGrid() {
     currentSnake.unshift(currentSnake[0] + direction) //adds square in direction we are heading
 
     //snake head getting the apple
-    if (squares[currentSnake[0]].classList.contains('apple')) {
+    if (squares[currentSnake[0]].classList.contains("apple")) {
         
-        squares[currentSnake[0]].classList.remove('apple')//removes the class of apple
-        squares[tail].classList.add('snake')//grow snake by adding class of snake to it
+        squares[currentSnake[0]].classList.remove("apple")//removes the class of apple
+        squares[tail].classList.add("snake")//grow snake by adding class of snake to it
         currentSnake.push(tail) //grow the currentSnake array by adding the number stored in the tail
         createApple() //invoke function to generate a new apple
         score++ //inscreases the score by 1
