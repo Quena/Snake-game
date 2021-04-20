@@ -28,3 +28,17 @@ function createGrid() {
 moveSnake()
 
 const timerId = setInterval(moveSnake, 1000)
+
+
+function control(e) {
+    if (e.key === "ArrowRight") {
+        direction = 1
+    } else if (e.key === "ArrowUp") {
+        direction = -10
+    } else if (e.key === "ArrowLeft") {
+        direction = -1
+    } else if (e.key === "ArrowDown") {
+        direction = 10
+    }
+}
+document.addEventListener("keyup", control)
