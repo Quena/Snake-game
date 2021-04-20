@@ -9,6 +9,7 @@ let appleIndex = 0
 let score = 0
 let intervalTime = 1000
 let speed = 0.9
+let timerId = 0
 
 function createGrid() {
     for(let i = 0; i < 100; i++) { //loop to create 100 elements
@@ -22,6 +23,10 @@ function createGrid() {
     createGrid()
     
    currentSnake.forEach(index => squares[index].classList.add("snake"))
+
+   function startGame() {
+        timerId = setInterval(moveSnake, intervalTime)
+   }
 
    function moveSnake() {  
     if (
@@ -50,14 +55,9 @@ function createGrid() {
         clearInterval(timerId)
         intervalTime = intervalTime * speed
         timerId = setInterval(moveSnake, intervalTime)
-       
-        
     }
     squares[currentSnake[0]].classList.add("snake")
 }
-moveSnake()
-
-let timerId = setInterval(moveSnake, intervalTime)
 
 //generates an apple in a random place, but doesn't do it where there's a snake
 function createApple() {
@@ -81,3 +81,4 @@ function control(e) {
     }
 }
 document.addEventListener("keyup", control)
+startButton.addEventListener("click", startGame)
