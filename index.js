@@ -1,10 +1,14 @@
 const grid = document.querySelector(".grid")
 const startButton = document.getElementById("start")
-const score = document.getElementById("score")
+const scoreDisplay = document.getElementById("score")
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
 const width = 10
+let appleIndex = 0
+let score = 0
+let intervalTime = 1000
+let speed = 0.9
 
 function createGrid() {
     for(let i = 0; i < 100; i++) { //loop to create 100 elements
@@ -32,19 +36,37 @@ function createGrid() {
     const tail = currentSnake.pop() //removes last element from the array and stores it in a const
     squares[tail].classList.remove("snake") //removes styling from the last element
     currentSnake.unshift(currentSnake[0] + direction) //adds square in direction we are heading
+
+    //snake head getting the apple
+    if (squares[currentSnake[0]].classList.contains('apple')) {
+        
+        squares[currentSnake[0]].classList.remove('apple')//removes the class of apple
+        squares[tail].classList.add('snake')//grow snake by adding class of snake to it
+        currentSnake.push(tail) //grow the currentSnake array by adding the number stored in the tail
+        createApple() //invoke function to generate a new apple
+        score++ //inscreases the score by 1
+        scoreDisplay.innerHTML = score //displays the score
+        //speed up the snake
+        clearInterval(timerId)
+        intervalTime = intervalTime * speed
+        timerId = setInterval(moveSnake, intervalTime)
+       
+        
+    }
     squares[currentSnake[0]].classList.add("snake")
 }
 moveSnake()
 
-const timerId = setInterval(moveSnake, 1000)
+let timerId = setInterval(moveSnake, intervalTime)
 
-function apples() {
+//generates an apple in a random place, but doesn't do it where there's a snake
+function createApple() {
     do {
 appleIndex = Math.floor(Math.random() * squares.length)
     } while (squares[appleIndex].classList.contains("snake"))
     squares[appleIndex].classList.add("apple")
 }
-apples()
+createApple()
 
 
 function control(e) {
