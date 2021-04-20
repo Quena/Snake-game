@@ -26,3 +26,5 @@ function createGrid() {
     squares[currentSnake[0]].classList.add("snake")
 }
 moveSnake()
+
+const timerId = setInterval(moveSnake, 1000)
