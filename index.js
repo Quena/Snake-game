@@ -38,6 +38,14 @@ moveSnake()
 
 const timerId = setInterval(moveSnake, 1000)
 
+function apples() {
+    do {
+appleIndex = Math.floor(Math.random() * squares.length)
+    } while (squares[appleIndex].classList.contains("snake"))
+    squares[appleIndex].classList.add("apple")
+}
+apples()
+
 
 function control(e) {
     if (e.key === "ArrowRight") {
