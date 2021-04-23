@@ -31,3 +31,7 @@ Javascript methods used:
 .key
 .Math.floor()
 .Math.random()
+
+# Snapshot
+
+![Screen Shot 2021-04-22 at 10 35 08](https://user-images.githubusercontent.com/41907302/115840664-3464e880-a41c-11eb-8675-e0627e12eee9.png)
